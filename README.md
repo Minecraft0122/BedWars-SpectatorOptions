@@ -1,0 +1,2 @@
+# BedWars-SpectatorOptions
+BedWars-SpectatorOptions

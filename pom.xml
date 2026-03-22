@@ -2,85 +2,111 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>me.kiiya</groupId>
-  <artifactId>BedWars-SpectatorOptions</artifactId>
-  <version>1.1</version>
-  <packaging>jar</packaging>
+    <groupId>me.kiiya</groupId>
+    <artifactId>BedWars1058-SpectatorOptions</artifactId>
+    <version>1.3</version>
+    <packaging>jar</packaging>
 
-  <name>BedWars-SpectatorOptions</name>
+    <name>BedWars-SpectatorOptions</name>
+    <description>A plugin to add spectator options for BedWars games.</description>
 
-  <properties>
-    <java.version>1.8</java.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+    </properties>
 
-  <repositories>
-      <repository>
-          <id>spigotmc-repo</id>
-          <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-      </repository>
-      <repository>
-          <id>placeholder</id>
-          <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-      </repository>
-  </repositories>
+    <!-- ✅ 只保留必要的远程仓库（用于 AuthLib） -->
+    <repositories>
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+    </repositories>
 
-  <dependencies>
-      <dependency>
-          <groupId>org.spigotmc</groupId>
-          <artifactId>spigot</artifactId>
-          <version>1.8.8-R0.1-SNAPSHOT</version>
-          <scope>provided</scope>
-      </dependency>
-      <dependency>
-          <groupId>com.andrei1058</groupId>
-          <artifactId>BedWars1058</artifactId>
-          <version>23.12.2</version>
-          <scope>system</scope>
-          <systemPath>${project.basedir}/libs/bedwars-plugin-23.12.2.jar</systemPath>
-      </dependency>
-      <dependency>
-          <groupId>com.tomkeuper</groupId>
-          <artifactId>BedWars2023</artifactId>
-          <version>1.0-SNAPSHOT</version>
-          <scope>system</scope>
-          <systemPath>${project.basedir}/libs/BedWars-1.0-SNAPSHOT.jar</systemPath>
-      </dependency>
-      <dependency>
-          <groupId>me.clip</groupId>
-          <artifactId>placeholderapi</artifactId>
-          <version>2.11.2</version>
-          <scope>provided</scope>
-      </dependency>
-  </dependencies>
+    <dependencies>
+        <!-- ✅ Mojang AuthLib (从远程仓库获取) -->
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>1.5.25</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ✅ Spigot API (从 libs/ 本地加载) -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/spigot-api-1.20.4-R0.1-20240423.152506-123.jar</systemPath>
+        </dependency>
+
+        <!-- ✅ BedWars2023 API (Tomkeuper) - 从 libs/ 加载 -->
+        <dependency>
+            <groupId>com.tomkeuper.bedwars</groupId>
+            <artifactId>bedwars-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/BedWars-1.0-SNAPSHOT.jar</systemPath>
+        </dependency>
+
+        <!-- ✅ BedWars1058 API (Andrei1058) - 从 libs/ 加载 -->
+        <dependency>
+            <groupId>com.andrei1058.bedwars</groupId>
+            <artifactId>bedwars-api</artifactId>
+            <version>23.12.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/bedwars-plugin-23.12.2.jar</systemPath>
+        </dependency>
+
+        <!-- ✅ PlaceholderAPI - 从 libs/ 加载 -->
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.12.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/PlaceholderAPI-2.12.2.jar</systemPath>
+        </dependency>
+
+        <!-- ✅ JetBrains Annotations (可选，如果代码中用了 @NotNull 等) -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>24.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.11.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
+
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

@@ -1,0 +1,13 @@
+name: BedWars1058-SpectatorOptions
+version: '${project.version}'
+main: me.kiiya.spectatoroptions.SpectatorOptions
+author: Kiiya
+authors:
+  - Kiiya
+  - Minecraft0122 [fix someting]
+description: SpectatorOptions for BedWars
+softdepend: [ BedWars1058, BedWars2023, PlaceholderAPI ]
+commands:
+    bwso:
+        description: Open SpectatorOptions GUI
+
