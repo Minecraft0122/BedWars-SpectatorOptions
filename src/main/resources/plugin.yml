@@ -1,5 +1,6 @@
 name: BedWars1058-SpectatorOptions
 version: '${project.version}'
+api-version: 1.13
 main: me.kiiya.spectatoroptions.SpectatorOptions
 author: Kiiya
 authors:
